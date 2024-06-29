@@ -29,7 +29,7 @@ function App() {
       const base64Image = await convertToBase64(file);
       const response = await openai.chat.completions.create({
         model: "gpt-4o",
-        temperature: 1.0,
+        temperature: 0.5,
         messages: [
           {
             role: "user",
@@ -58,6 +58,25 @@ function App() {
     } catch (error) {
       console.error('Error:', error);
       alert('An error occurred while processing the image.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
+  const handleRetry = async () => {
+    setIsLoading(true);
+    try {
+      // Assuming you have the last used file still available
+      if (selectedFile) {
+        await handleUpload(selectedFile);
+      } else {
+        // If no file is available, you might want to show an error message
+        alert('No image available for retry. Please upload an image first.');
+      }
+    } catch (error) {
+      console.error('Error during retry:', error);
+      alert('An error occurred while retrying. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -106,6 +125,12 @@ function App() {
       readOnly
       className="generated-text"
       />
+      <button
+      className="retry-button"
+      onClick={handleRetry}
+      >
+      RETRY
+      </button>
       </div>
     )}
     {generatedImage && (

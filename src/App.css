@@ -42,6 +42,10 @@ h1 {
   font-size: 2.5vw;
 }
 
+h2 {
+  font-size: 1.5vw;
+}
+
 .upload-section {
   margin: 15px 0;
   display: flex;
@@ -68,6 +72,7 @@ h1 {
 .file-label:hover {
   background-color: #5A6765;
   box-shadow: 0 0 15px #8AEA92;
+  transform: scale(1.03);
 }
 
 .preview-section {
@@ -83,6 +88,11 @@ h1 {
   max-height: 150px;
   border-radius: 10px;
   margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.image-preview:active {
+  transform: scale(2.1);
 }
 
 .loading-wheel {
@@ -102,6 +112,7 @@ h1 {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+  position: relative;  /* Add this */
 }
 
 .generated-text {
@@ -116,12 +127,6 @@ h1 {
   color: #8AEA92;
   resize: none;
   font-family: 'Courier New', monospace;
-  transition: all 0.3s ease;
-}
-
-.generated-text:focus {
-  outline: none;
-  box-shadow: 0 0 20px #72A97C;
 }
 
 .file-name {
@@ -139,6 +144,34 @@ h1 {
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+.generated-image {
+  max-width: 100%;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+}
+
+.generated-image:active {
+  transform: scale(1.1);
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1A1015;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5A6765;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #72A97C;
 }
 
 /* Mobile Responsive Styles */
@@ -189,7 +222,40 @@ h1 {
   }
 }
 
-.generated-image {
-  max-width: 100%;
-  margin-top: 20px;
+
+/* RETRY BUTTON */
+.retry-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: #33202A;
+  color: #8AEA92;
+  border: 2px solid #5A6765;
+  border-radius: 25px;
+  padding: 8px 15px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8vw;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.retry-button:hover {
+  background-color: #5A6765;
+  box-shadow: 0 0 15px #8AEA92;
+  transform: scale(1.03);
+}
+
+@media screen and (max-width: 768px) {
+  .retry-button {
+    font-size: 2.5vw;
+    padding: 6px 12px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .retry-button {
+    font-size: 3.5vw;
+    padding: 5px 10px;
+  }
 }
