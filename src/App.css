@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.App {
+  text-align: center;
+  background-color: #1A1015;
+  color: #8AEA92;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App-header {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+h1 {
+  color: #72A97C;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px #8AEA92;
+  margin-bottom: 20px;
+  font-size: 2.5vw;
+}
+
+.upload-section {
+  margin: 15px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-label {
+  padding: 10px 15px;
+  background-color: #33202A;
+  color: #8AEA92;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  border: 2px solid #5A6765;
+  text-transform: lowercase;
+  font-size: 1vw;
+}
+
+.file-label:hover {
+  background-color: #5A6765;
+  box-shadow: 0 0 15px #8AEA92;
+}
+
+.preview-section {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.image-preview {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.loading-wheel {
+  border: 3px solid #000000;
+  border-top: 3px solid #8AEA92;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+}
+
+.generated-text-section {
+  width: 80%;
+  max-width: 600px;
+  animation: fadeIn 0.5s ease-in;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.generated-text {
+  width: 100%;
+  flex: 1;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 1vw;
+  border-radius: 10px;
+  border: 2px solid #5A6765;
+  background-color: #33202A;
+  color: #8AEA92;
+  resize: none;
+  font-family: 'Courier New', monospace;
+  transition: all 0.3s ease;
+}
+
+.generated-text:focus {
+  outline: none;
+  box-shadow: 0 0 20px #72A97C;
+}
+
+.file-name {
+  font-size: 0.8vw;
+  margin-top: 5px;
+  color: #5A6765;
+  text-transform: lowercase;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 6vw;
+  }
+  .file-label {
+    font-size: 3vw;
+    padding: 8px 12px;
+  }
+  .generated-text {
+    font-size: 3vw;
+  }
+  .file-name {
+    font-size: 2.5vw;
+  }
+  .generated-text-section {
+    width: 90%;
+  }
+  .image-preview {
+    max-width: 100px;
+    max-height: 100px;
+  }
+}
+
+/* Additional adjustments for very small screens */
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 8vw;
+  }
+  .file-label {
+    font-size: 4vw;
+    padding: 6px 10px;
+  }
+  .generated-text {
+    font-size: 4vw;
+  }
+  .file-name {
+    font-size: 3vw;
+  }
+  .generated-text-section {
+    width: 95%;
+  }
+  .image-preview {
+    max-width: 120px;
+    max-height: 120px;
+  }
+}
+
+.generated-image {
+  max-width: 100%;
+  margin-top: 20px;
+}
