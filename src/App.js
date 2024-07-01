@@ -29,7 +29,6 @@ function App() {
       const base64Image = await convertToBase64(file);
       const response = await openai.chat.completions.create({
         model: "gpt-4o",
-        temperature: 0.5,
         messages: [
           {
             role: "user",
