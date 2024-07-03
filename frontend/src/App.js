@@ -50,7 +50,7 @@ function App() {
 
       const generatedTextContent = response.choices[0].message.content;
       setGeneratedText(generatedTextContent);
-      //saveToCSV(generatedTextContent);
+      generateGraphic(generatedTextContent);
       //const pngDataUrl = createRelationshipDiagram(generatedTextContent);
       //console.log(pngDataUrl);
       //setGeneratedImage(pngDataUrl);
@@ -90,11 +90,10 @@ function App() {
     });
   };
 
-
   return (
     <div className="App">
     <header className="App-header">
-    <h1>Diagram to Text Converter</h1>
+    <h1>Sketch to Diagram</h1>
     <div className="upload-section">
     <input
     type="file"
@@ -145,7 +144,38 @@ function App() {
 
 export default App;
 
+function generateGraphic(string) {
+  // Create a FormData object to send the text
+  const formData = new FormData();
+  formData.append('text', string);
 
+  // Send a POST request to the /process_text endpoint
+  fetch('http://127.0.0.1:5000/process_text', {
+    method: 'POST',
+    body: formData
+  })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        console.log(response.blob());
+        return response.blob();
+      })
+      .then(blob => {
+        // Create a URL for the blob
+        const imageUrl = URL.createObjectURL(blob);
+
+        // Create an image element and set its source to the blob URL
+        const img = document.createElement('img');
+        img.src = imageUrl;
+
+        // Append the image to the document body (or any other desired location)
+        document.body.appendChild(img);
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+      });
+}
 // // Parse string and generate a png diagram from parsed graph
 // function createRelationshipDiagram(input) {
 //   // Parse input string

@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
+:root {
+  --base-hue: 0;
+  --animation-duration: 60s; /* Adjust this value to change the speed */
+}
+
+@keyframes hueRotate {
+  0% { --base-hue: 0; }
+  100% { --base-hue: 360; }
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -11,12 +21,13 @@ html, body {
 body {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  animation: hueRotate var(--animation-duration) linear infinite;
 }
 
 .App {
   text-align: center;
-  background-color: #1A1015;
-  color: #8AEA92;
+  background-color: hsl(calc(var(--base-hue) + 0), 85%, 5%);
+  color: hsl(calc(var(--base-hue) + 0), 100%, 75%);
   font-family: 'Orbitron', sans-serif;
   text-transform: uppercase;
   min-height: 100vh;
@@ -35,9 +46,8 @@ body {
 }
 
 h1 {
-  color: #72A97C;
+  color: hsl(calc(var(--base-hue) + 0), 100%, 62%);
   letter-spacing: 3px;
-  text-shadow: 0 0 10px #8AEA92;
   margin-bottom: 20px;
   font-size: 2.5vw;
 }
@@ -57,22 +67,39 @@ h2 {
   display: none;
 }
 
-.file-label {
+.file-label, .retry-button {
   padding: 10px 15px;
-  background-color: #33202A;
-  color: #8AEA92;
+  color: hsl(calc(var(--base-hue) + 0), 100%, 75%);
   cursor: pointer;
   border-radius: 25px;
-  transition: all 0.3s ease;
-  border: 2px solid #5A6765;
+  border: 2px solid hsl(calc(var(--base-hue) + 0), 65%, 22%);
   text-transform: lowercase;
   font-size: 1vw;
+  background-color: hsl(calc(var(--base-hue) + 0), 70%, 12%);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.125s ease, color 0.125s ease;
 }
 
-.file-label:hover {
-  background-color: #5A6765;
-  box-shadow: 0 0 15px #8AEA92;
-  transform: scale(1.03);
+.file-label::before, .retry-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 100%;
+  background-color: hsl(calc(var(--base-hue) + 0), 65%, 22%);
+  transition: left 0.125s ease-out;
+  z-index: -1;
+}
+
+.file-label:hover, .retry-button:hover {
+  transform: translateY(-2px);
+  color: hsl(calc(var(--base-hue) + 0), 100%, 75%);
+}
+
+.file-label:hover::before, .retry-button:hover::before {
+  left: 0;
 }
 
 .preview-section {
@@ -80,7 +107,7 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: fadeIn 0.5s ease-in;
+  animation: fadeIn 0.25s ease-in;
 }
 
 .image-preview {
@@ -88,31 +115,31 @@ h2 {
   max-height: 150px;
   border-radius: 10px;
   margin-bottom: 10px;
-  transition: all 0.3s ease;
+  transition: all 0.15s ease;
 }
 
 .image-preview:active {
-  transform: scale(2.1);
+  transform: scale(1.3);
 }
 
 .loading-wheel {
-  border: 3px solid #000000;
-  border-top: 3px solid #8AEA92;
+  border: 3px solid hsl(calc(var(--base-hue) + 0), 85%, 5%);
+  border-top: 3px solid hsl(calc(var(--base-hue) + 0), 100%, 75%);
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  animation: spin 1s linear infinite;
+  animation: spin 0.5s linear infinite;
 }
 
 .generated-text-section {
   width: 80%;
   max-width: 600px;
-  animation: fadeIn 0.5s ease-in;
+  animation: fadeIn 0.25s ease-in;
   flex: 1;
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
-  position: relative;  /* Add this */
+  position: relative;
 }
 
 .generated-text {
@@ -122,9 +149,9 @@ h2 {
   padding: 10px;
   font-size: 1vw;
   border-radius: 10px;
-  border: 2px solid #5A6765;
-  background-color: #33202A;
-  color: #8AEA92;
+  border: 2px solid hsl(calc(var(--base-hue) + 0), 65%, 22%);
+  background-color: hsl(calc(var(--base-hue) + 0), 70%, 12%);
+  color: hsl(calc(var(--base-hue) + 0), 100%, 75%);
   resize: none;
   font-family: 'Courier New', monospace;
 }
@@ -132,7 +159,7 @@ h2 {
 .file-name {
   font-size: 0.8vw;
   margin-top: 5px;
-  color: #5A6765;
+  color: hsl(calc(var(--base-hue) + 0), 65%, 22%);
   text-transform: lowercase;
 }
 
@@ -149,113 +176,53 @@ h2 {
 .generated-image {
   max-width: 100%;
   margin-top: 20px;
-  transition: all 0.3s ease;
+  transition: all 0.15s ease;
 }
 
 .generated-image:active {
-  transform: scale(1.1);
+  transform: scale(1.03);
 }
 
-/* Scrollbar Styles */
 ::-webkit-scrollbar {
   width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1A1015;
+  background: hsl(calc(var(--base-hue) + 0), 85%, 5%);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #5A6765;
+  background: hsl(calc(var(--base-hue) + 0), 65%, 22%);
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #72A97C;
+  background: hsl(calc(var(--base-hue) + 0), 100%, 62%);
 }
 
-/* Mobile Responsive Styles */
-@media screen and (max-width: 768px) {
-  h1 {
-    font-size: 6vw;
-  }
-  .file-label {
-    font-size: 3vw;
-    padding: 8px 12px;
-  }
-  .generated-text {
-    font-size: 3vw;
-  }
-  .file-name {
-    font-size: 2.5vw;
-  }
-  .generated-text-section {
-    width: 90%;
-  }
-  .image-preview {
-    max-width: 100px;
-    max-height: 100px;
-  }
-}
-
-/* Additional adjustments for very small screens */
-@media screen and (max-width: 480px) {
-  h1 {
-    font-size: 8vw;
-  }
-  .file-label {
-    font-size: 4vw;
-    padding: 6px 10px;
-  }
-  .generated-text {
-    font-size: 4vw;
-  }
-  .file-name {
-    font-size: 3vw;
-  }
-  .generated-text-section {
-    width: 95%;
-  }
-  .image-preview {
-    max-width: 120px;
-    max-height: 120px;
-  }
-}
-
-
-/* RETRY BUTTON */
 .retry-button {
   position: absolute;
   bottom: 10px;
   right: 10px;
-  background-color: #33202A;
-  color: #8AEA92;
-  border: 2px solid #5A6765;
-  border-radius: 25px;
-  padding: 8px 15px;
   font-family: 'Orbitron', sans-serif;
   font-size: 0.8vw;
-  cursor: pointer;
-  transition: all 0.3s ease;
   text-transform: uppercase;
 }
 
-.retry-button:hover {
-  background-color: #5A6765;
-  box-shadow: 0 0 15px #8AEA92;
-  transform: scale(1.03);
-}
-
 @media screen and (max-width: 768px) {
-  .retry-button {
-    font-size: 2.5vw;
-    padding: 6px 12px;
-  }
+  h1 { font-size: 6vw; }
+  .file-label, .retry-button { font-size: 3vw; padding: 8px 12px; }
+  .generated-text { font-size: 3vw; }
+  .file-name { font-size: 2.5vw; }
+  .generated-text-section { width: 90%; }
+  .image-preview { max-width: 100px; max-height: 100px; }
 }
 
 @media screen and (max-width: 480px) {
-  .retry-button {
-    font-size: 3.5vw;
-    padding: 5px 10px;
-  }
+  h1 { font-size: 8vw; }
+  .file-label, .retry-button { font-size: 4vw; padding: 6px 10px; }
+  .generated-text { font-size: 4vw; }
+  .file-name { font-size: 3vw; }
+  .generated-text-section { width: 95%; }
+  .image-preview { max-width: 120px; max-height: 120px; }
 }
